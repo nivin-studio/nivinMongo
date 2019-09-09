@@ -1,0 +1,26 @@
+{
+  "name": "nivin-studio/nivin-mongo",
+  "description": "Phalcon MongoDB ODM",
+  "keywords": ["mongodb", "mongo", "php", "odm", "orm", "phalcon"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ving",
+      "email": "ving@nivin.cn",
+      "homepage": "https://github.com/nivin-studio"
+    }
+  ],
+  "require": {
+    "ext-mongodb": "*",
+    "mongodb/mongodb": "^1.4"
+  },
+  "require-dev": {
+    "phalcon/devtools": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "nivinMongo\\": "src"
+    }
+  },
+  "minimum-stability": "stable"
+}

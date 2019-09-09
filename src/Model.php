@@ -9,10 +9,32 @@ use Phalcon\Di;
  */
 abstract class Model
 {
-    protected $table;
-    protected $dbname;
+    /**
+     * 连接的数据库名
+     *
+     * @var string
+     */
+    protected $database;
 
+    /**
+     * 连接的数据表名
+     *
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * 查询构造器对象
+     *
+     * @var \nivinmongo\Builder
+     */
     protected $builder;
+
+    /**
+     * 数据库连接对象
+     *
+     * @var
+     */
     protected $connection;
 
     /**
@@ -20,17 +42,17 @@ abstract class Model
      *
      * @return string
      */
-    public function getDbName()
+    public function getDatabaseName()
     {
-        if (is_null($this->dbname)) {
+        if (is_null($this->database)) {
             return Di::getDefault()->get('config')->mongo->database;
         }
 
-        return $this->dbname;
+        return $this->database;
     }
 
     /**
-     * 获取集合名
+     * 获取数据表名
      *
      * @return string
      */
@@ -48,31 +70,36 @@ abstract class Model
      *
      * @param string $name
      */
-    public function setDbName($name)
+    public function setDatabaseName($name)
     {
-        $this->dbname = $name;
+        $this->database = $name;
+
+        return $this;
     }
 
     /**
-     * 设置集合名
+     * 设置数据表名
      *
      * @param string $name
      */
     public function setTable($name)
     {
         $this->table = $name;
+
+        return $this;
     }
 
     /**
-     * 获取一个连接器
+     * 获取一个数据库连接
      *
      * @return [type] [description]
      */
     public function getConnection()
     {
-        if ($this->connection == null) {
-            $this->connection = new \MongoDB\Collection(Di::getDefault()->get('mongo'), $this->getDbName(), $this->getTable());
+        if (is_null($this->connection)) {
+            $this->connection = new \MongoDB\Collection(Di::getDefault()->get('mongo'), $this->getDatabaseName(), $this->getTable());
         }
+
         return $this->connection;
     }
 
@@ -83,7 +110,9 @@ abstract class Model
      */
     public function getBuilder()
     {
-        $this->builder = new Builder($this);
+        if (is_null($this->builder)) {
+            $this->builder = new Builder($this);
+        }
 
         return $this->builder;
     }

@@ -18,7 +18,7 @@ class Builder
     public $model;
 
     /**
-     * 服务连接对象
+     * 数据库连接对象
      *
      * @var
      */

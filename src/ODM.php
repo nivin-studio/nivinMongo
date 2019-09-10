@@ -7,8 +7,6 @@ namespace nivinMongo;
  */
 class ODM extends Model
 {
-    protected $table;
-
     /**
      * 设置集合名
      *

@@ -52,6 +52,18 @@ abstract class Model
     }
 
     /**
+     * 设置数据库名
+     *
+     * @param string $name
+     */
+    public function setDatabaseName($name)
+    {
+        $this->database = $name;
+
+        return $this;
+    }
+
+    /**
      * 获取数据表名
      *
      * @return string
@@ -63,18 +75,6 @@ abstract class Model
         }
 
         return $this->table;
-    }
-
-    /**
-     * 设置数据库名
-     *
-     * @param string $name
-     */
-    public function setDatabaseName($name)
-    {
-        $this->database = $name;
-
-        return $this;
     }
 
     /**
@@ -90,20 +90,6 @@ abstract class Model
     }
 
     /**
-     * 获取一个数据库连接
-     *
-     * @return [type] [description]
-     */
-    public function getConnection()
-    {
-        if (is_null($this->connection)) {
-            $this->connection = new \MongoDB\Collection(Di::getDefault()->get('mongo'), $this->getDatabaseName(), $this->getTable());
-        }
-
-        return $this->connection;
-    }
-
-    /**
      * 获取一个查询构造器
      *
      * @return Builder
@@ -115,6 +101,20 @@ abstract class Model
         }
 
         return $this->builder;
+    }
+
+    /**
+     * 获取一个数据库连接
+     *
+     * @return [type] [description]
+     */
+    public function getConnection()
+    {
+        if (is_null($this->connection)) {
+            $this->connection = new \MongoDB\Collection(Di::getDefault()->get('mongo'), $this->getDatabaseName(), $this->getTable());
+        }
+
+        return $this->connection;
     }
 
     /**

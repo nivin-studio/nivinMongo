@@ -5,7 +5,7 @@ namespace nivinMongo;
 /**
  *
  */
-class ODM extends Model
+class MG extends Model
 {
     /**
      * 设置集合名
